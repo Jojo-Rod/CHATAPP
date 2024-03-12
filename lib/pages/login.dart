@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:main/components/MyButton.dart';
 import 'package:main/components/MyTextField.dart';
+import 'package:main/services/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key, required this.onTap});
@@ -14,8 +16,14 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final bool obscureText = false;
-void signIn(){
-
+void signIn() async{
+  final authService = Provider.of<AuthService>(context,listen:false);
+  try{
+    await authService.signInWithEmailandPassword(emailController.text, passwordController.text);
+  }
+  catch(e){
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()),));
+  }
 }
   // final void Function()? onTap
 

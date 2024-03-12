@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:main/components/MyButton.dart';
+import 'package:main/components/MyDialog.dart';
 import 'package:main/components/MyTextField.dart';
+import 'package:main/services/auth/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key, required this.onTap});
@@ -11,14 +14,28 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  GlobalKey formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void signUp(){
-
+  Future<void> signUp() async {
+    if (passwordController.text != confirmPasswordController.text) {
+      // const MyDialog(title:"Password Mismatch", content:"Passwords don't match",);
+        showDialogBox(context, "Password Mismatch","Passwords don't match");
+    } else {
+      final authService = Provider.of<AuthService>(context, listen: false);
+      try {
+        await authService.createEmailandPassword(
+            emailController.text, passwordController.text);
+      } catch (e) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.toString())));
+      }
+    }
   }
+
   final bool obscureText = false;
 
   // final void Function()? onTap
@@ -41,7 +58,7 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   children: [
                     Icon(
-                      Icons.message,
+                      Icons.account_box,
                       size: 100,
                       color: Colors.grey[800],
                     ),
@@ -58,7 +75,10 @@ class _RegisterState extends State<Register> {
                     MyTextField(
                         controller: emailController,
                         hintText: "Enter email",
-                        obscureText: obscureText),
+                        obscureText: obscureText,
+                        // prefixIcon: Icon(Icons.mail),
+                        // suff
+                        ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -79,9 +99,7 @@ class _RegisterState extends State<Register> {
                     ),
                     // sign in
 
-                    MyButton(
-                        onTap: signUp,
-                        text: "Sign Up")
+                    MyButton(onTap: signUp, text: "Sign Up")
                     // not a member
                     ,
                     const SizedBox(
@@ -97,7 +115,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         GestureDetector(
-                          onTap : widget.onTap, 
+                          onTap: widget.onTap,
                           child: const Text(
                             " Sign In",
                             style: TextStyle(
