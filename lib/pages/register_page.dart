@@ -36,11 +36,13 @@ class _RegisterState extends State<Register> {
     }
   }
 
-  final bool obscureText = false;
-
+  // final bool obscureText = false;
+  bool isVisible1 = false;
+  bool isVisible2 = false;
   // final void Function()? onTap
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         backgroundColor: Colors.grey[300],
         // icon
@@ -75,9 +77,8 @@ class _RegisterState extends State<Register> {
                     MyTextField(
                         controller: emailController,
                         hintText: "Enter email",
-                        obscureText: obscureText,
-                        // prefixIcon: Icon(Icons.mail),
-                        // suff
+                        obscureText: false,
+                        suffixIcon: null,
                         ),
                     const SizedBox(
                       height: 20,
@@ -86,14 +87,28 @@ class _RegisterState extends State<Register> {
                     MyTextField(
                         controller: passwordController,
                         hintText: "Enter password",
-                        obscureText: !obscureText),
+                        obscureText: !isVisible1,
+                        suffixIcon: IconButton(onPressed: () {
+                          setState(() {
+                            isVisible1 = !isVisible1;
+                        });}
+                        ,icon:isVisible1?const Icon(Icons.visibility_outlined):const Icon(Icons.visibility_off_outlined)
+                        ),
+                        ),
                     const SizedBox(
                       height: 20,
                     ),
                     MyTextField(
                         controller: confirmPasswordController,
                         hintText: "Confirm password",
-                        obscureText: !obscureText),
+                        obscureText: !isVisible2,
+                        suffixIcon: IconButton(onPressed: () {
+                          setState(() {
+                            isVisible2 = !isVisible2;
+                        });}
+                        ,icon:isVisible2?const Icon(Icons.visibility_outlined):const Icon(Icons.visibility_off_outlined)
+                        ),
+                        ),
                     const SizedBox(
                       height: 20,
                     ),

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,16 +22,50 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomePage"),
-        actions: [
-          IconButton(
-            onPressed: () => signOut(),
-            icon: const Icon(Icons.logout),
-          )
-        ],
+      backgroundColor: Colors.grey[300],
+      // appBar: AppBar(
+      //   title: const Text("HomePage"),
+      //   actions: [
+      //   ],
+      // ),
+      body: Center(
+        child: Card(
+          shadowColor: Colors.blueGrey,
+          elevation: 50,
+            child: Container(
+                width: 1500,
+                height: 700,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 1450,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(50.0), 
+                          ),
+                        ),
+                        // color: const Color.fromRGBO(38, 201, 38, 0.498),
+                        child:
+                            const ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(33, 33, 33, 1))
+                                ,foregroundColor: MaterialStatePropertyAll(Colors.grey),
+                              ),
+                              onPressed:null,child: Text("Chats", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      _buildUserList(),
+                      
+                    ],
+                  ),
+                ))),
       ),
-      body: _buildUserList(),
+      floatingActionButton: FloatingActionButton(onPressed: signOut,child: const Icon(Icons.logout_rounded),)
     );
   }
 
@@ -51,6 +83,7 @@ class _HomePageState extends State<HomePage> {
           }
 
           return ListView(
+            shrinkWrap: true,
             children: snapshot.data!.docs
                 .map<Widget>((doc) => _buildUserListItem(doc))
                 .toList(),
@@ -65,20 +98,29 @@ class _HomePageState extends State<HomePage> {
 
     // display all users except current user
     if (_auth.currentUser!.email != data['email']) {
-      return ListTile(
-        title: Text(data['email']),
-        onTap: () {
-          // pass the clicked user's UID TO THE CHAT PAGE
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatPage(receiverUserEmail: data['email'],receiverUserID: data['uid'],),
-            ),
-          );
-        },
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+        child: Card(
+          color: Colors.grey[300],
+          child: ListTile(
+            leading: const Icon(Icons.person),
+            title: Text(data['email']),
+            onTap: () {
+              // pass the clicked user's UID TO THE CHAT PAGE
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatPage(
+                    receiverUserEmail: data['email'],
+                    receiverUserID: data['uid'],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
       );
-    }
-    else{
+    } else {
       return Container();
     }
   }

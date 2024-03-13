@@ -15,7 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final bool obscureText = false;
+  // final bool obscureText = false;
+  bool isVisible = false;
 void signIn() async{
   final authService = Provider.of<AuthService>(context,listen:false);
   try{
@@ -63,7 +64,8 @@ void signIn() async{
                     MyTextField(
                         controller: emailController,
                         hintText: "Enter email",
-                        obscureText: obscureText),
+                        obscureText: false,
+                        suffixIcon: null),
                     const SizedBox(
                       height: 20,
                     ),
@@ -71,7 +73,14 @@ void signIn() async{
                     MyTextField(
                         controller: passwordController,
                         hintText: "Enter password",
-                        obscureText: !obscureText),
+                        obscureText: !isVisible,
+                        suffixIcon: IconButton(onPressed: () {
+                          setState(() {
+                            isVisible = !isVisible;
+                        });}
+                        ,icon:isVisible?const Icon(Icons.visibility_outlined):const Icon(Icons.visibility_off_outlined)
+                        ),
+                        ),
                     const SizedBox(
                       height: 20,
                     ),

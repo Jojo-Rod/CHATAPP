@@ -19,8 +19,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  const MaterialApp(
       debugShowCheckedModeBanner: false,
+      // theme: ThemeData(
+      // primarySwatch: Colors.blue, // Set the primary color swatch
+      // visualDensity: VisualDensity.adaptivePlatformDensity, // Set the visual density
+    // ),
       home: AuthGate(),
     );
 }
