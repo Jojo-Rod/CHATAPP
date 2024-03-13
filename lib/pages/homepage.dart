@@ -22,6 +22,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        title: Text(_auth.currentUser!.email!),
+      ),
       backgroundColor: Colors.grey[300],
       // appBar: AppBar(
       //   title: const Text("HomePage"),

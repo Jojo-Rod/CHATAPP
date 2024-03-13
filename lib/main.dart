@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:main/pages/splash_screen.dart';
 import 'package:main/services/auth/auth_gate.dart';
 import 'package:main/services/auth/auth_service.dart';
 import 'package:main/firebase_options.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       // primarySwatch: Colors.blue, // Set the primary color swatch
       // visualDensity: VisualDensity.adaptivePlatformDensity, // Set the visual density
     // ),
-      home: AuthGate(),
+      home: SplashScreen(),
     );
 }
 }
