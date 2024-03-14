@@ -41,31 +41,33 @@ class _HomePageState extends State<HomePage> {
                 height: 700,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 60,
-                        width: 1450,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(50.0), 
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 60,
+                          width: 1450,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(50.0), 
+                            ),
                           ),
+                          // color: const Color.fromRGBO(38, 201, 38, 0.498),
+                          child:
+                              const ElevatedButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(33, 33, 33, 1))
+                                  ,foregroundColor: MaterialStatePropertyAll(Colors.grey),
+                                ),
+                                onPressed:null,child: Text("Chats", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
                         ),
-                        // color: const Color.fromRGBO(38, 201, 38, 0.498),
-                        child:
-                            const ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(33, 33, 33, 1))
-                                ,foregroundColor: MaterialStatePropertyAll(Colors.grey),
-                              ),
-                              onPressed:null,child: Text("Chats", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold))),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      _buildUserList(),
-                      
-                    ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        _buildUserList(),
+                        
+                      ],
+                    ),
                   ),
                 ))),
       ),

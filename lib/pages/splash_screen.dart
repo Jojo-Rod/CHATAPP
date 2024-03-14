@@ -13,23 +13,27 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) => AuthGate()));
     });
   }
 
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      color: Colors.grey[300],
+      child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 500,
-              child: Image.asset("assets/splash_screen.png")),
-            const Text("Let's Connect Better....", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 25, color: Colors.black, decoration: TextDecoration.none),)
-          ],
-        ));
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 500,
+                child: Image.asset("assets/splash_screen.png")),
+              const Text("Let's Connect Better....", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 25, color: Colors.black, decoration: TextDecoration.none),)
+            ],
+          ),
+      ),
+    );
   }
 
 // @override
