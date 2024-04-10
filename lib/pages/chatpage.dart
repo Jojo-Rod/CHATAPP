@@ -1,8 +1,6 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:main/chat/chat_service.dart';
 import 'package:main/components/MyTextField.dart';
 import 'package:main/components/chat_bubble.dart';
@@ -36,7 +34,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(33, 33, 33, 1),
+      backgroundColor: const Color.fromRGBO(33, 33, 33, 1),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey,
